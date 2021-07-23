@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500;700&display=swap');
+
+.LandingPage{
+ background-color: #F5F6F8; 
+ text-align: center;
+ font-family: 'Montserrat', sans-serif; 
+}
+
+.LandingPage .heading{
+    font-size: 30px;
+    font-weight: 600;
+    color: #707070;
+    /* margin-top: 201px; */
+    padding: 201px 0 50px 0;
+}
+
+.btn{
+    background-color: #FFFFFF;
+    width: 45%;
+    height: 70px;
+    margin-left: 29%;
+}
+
+button{
+    margin-top: 2.4%;
+    margin-left: 436px;
+    -webkit-border-radius: 6;
+    -moz-border-radius: 6;
+    border-radius: 6px;
+    font-family: 'Montserrat', sans-serif;
+    color:  white;
+    border: none;
+    font-size: 20px;
+    background:  #1A75E8;
+    padding: 10px 20px 10px 20px;
+    text-decoration: none;
+}
+
+.button:hover {
+    background: red;
+    text-decoration: none;
+  }
+
+.examples{
+    display: flex;
+    justify-content: center;  
+    margin-top: 25px;
+}
+
+.example{
+    margin-left: 371px;
+    color: lightgray;
+}
+
+.eg{
+    margin-left: auto;
+    margin-right: 542px;
+    color: lightgray;
+    margin-top: 7px;
+}
+
+.eg ul li{
+    list-style-type: none;
+    display: inline;
+    padding:10px;
+}
