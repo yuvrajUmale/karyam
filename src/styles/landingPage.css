@@ -6,22 +6,22 @@
  font-family: 'Montserrat', sans-serif; 
 }
 
-.LandingPage .heading{
-    font-size: 30px;
-    font-weight: 600;
+.LandingPage .heading h1{
+    font-size: 62px;
+    font-weight: 500;
     color: #707070;
     /* margin-top: 201px; */
     padding: 201px 0 50px 0;
 }
 
-.btn{
+/* .btn{
     background-color: #FFFFFF;
     width: 45%;
     height: 70px;
     margin-left: 29%;
-}
+} */
 
-button{
+/* button{
     margin-top: 2.4%;
     margin-left: 436px;
     -webkit-border-radius: 6;
@@ -34,12 +34,12 @@ button{
     background:  #1A75E8;
     padding: 10px 20px 10px 20px;
     text-decoration: none;
-}
+} */
 
-.button:hover {
+/* .button:hover {
     background: red;
     text-decoration: none;
-  }
+  } */
 
 .examples{
     display: flex;
@@ -63,4 +63,21 @@ button{
     list-style-type: none;
     display: inline;
     padding:10px;
+}
+
+.inputBox{
+    /* background-color: red; */
+    margin-left: 400px;
+    margin-bottom: 20px;
+}
+
+.buttonControl{
+    background-color: red;
+}
+
+.Dheading{
+    margin-top: 5%;
+    /* align-items: center; */
+    margin-left: 577px;
+    margin-bottom: 5%;
 }
