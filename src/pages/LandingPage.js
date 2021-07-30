@@ -4,8 +4,17 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 // import Row from "react-bootstrap/Row";
 // import Col from "react-bootstrap/Col";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
 function LandingPage() {
+  const [search, setSearch] = useState("");
+
+  const handleSubmit = (e) => {
+    // e.preventDefault();
+    // if(firstName,lastName)
+  };
+
   return (
     <>
       <section>
@@ -15,24 +24,26 @@ function LandingPage() {
             <h1>Job portal</h1>
           </div>
           {/* button */}
-          <div>
+          <div className="container d-flex justify-content-center">
             <Form>
-              {/* <Row>
-                <Col>
-                  <Form.Control
-                    type="email"
-                    placeholder="Search for job title"
-                  />
-                </Col>
-                <Col>
-                  <Button variant="primary" type="submit">
-                    {" "}
-                    search
-                  </Button>
-                </Col>
-              </Row> */}
-              <Form.Control type="text" placeholder="Search for job title" />
-              <Button variant="primary" type="submit">search</Button>
+              <Form.Control
+                className=""
+                type="text"
+                placeholder="Search for job title"
+                id="search"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
+              <Link to="/details">
+                <Button
+                  onClick={handleSubmit}
+                  className="mt-3"
+                  variant="primary"
+                  type="submit"
+                >
+                  search
+                </Button>
+              </Link>
             </Form>
           </div>
           {/* search examples */}
@@ -41,7 +52,6 @@ function LandingPage() {
             <div className="eg">
               <ul>
                 <li>Front-End</li>
-                <li>Back-End</li>
               </ul>
             </div>
           </div>

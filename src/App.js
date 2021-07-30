@@ -7,6 +7,7 @@ import { Switch, Route } from "react-router-dom";
 import "./style.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Details from "./pages/Details";
+import Submit from "./pages/Submit";
 
 function App() {
   return (
@@ -14,6 +15,9 @@ function App() {
       <Switch>
         <Route path="/" exact>
         <LandingPage />
+        </Route>
+        <Route path="/submit" exact>
+        <Submit />
         </Route>
         <Route path="/details" exact>
         <Details />

@@ -1,66 +1,133 @@
 import React from "react";
-import { Form, Row, Col, Button } from "react-bootstrap";
+import { Form, Row, Col, Button, Dropdown } from "react-bootstrap";
 import { useState } from "react";
+import {Link, useHistory } from 'react-router-dom'
+import Submit from "../pages/Submit";
+// import Dropdown from "./Dropdown";
 
 function Data() {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setlastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [mobileNumber, setmobileNumber] = useState("");
-  const [people, setPeople] = useState([]);
+  // const [firstName, setFirstName] = useState("");
+  // const [lastName, setlastName] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [mobileNumber, setmobileNumber] = useState("");
+  const history = useHistory();
+  const [validated, setValidated] = useState(false);
+  const [check, setCheck] = useState(false);
+  const [user, setUser] = useState({
+    firstName:'',
+    lastName: "",
+    email: "",
+    mobileNumber: "",
+    formHorizontalRadios1: "",
+    formHorizontalRadios2: "",
+    formHorizontalRadios3: "",
+    companyName: "",
+    expectedJob: "",
+    Address: "",
+    Address2: "",
+    City: "",
+    States: "",
+    Pincode:"",
+    checkMe:""
+  });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if(firstName,lastName,)
+  function handleInputs(e) {
+    const value = e.target.value;
+    setUser({
+      ...user,
+      [e.target.name]:value
+    })
+    setUser("");
+  }
+
+  const handleSubmit = (event) => {
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      event.preventDefault();
+      event.stopPropagation();
+    }
+
+    setValidated(true);
+    
+    // history.push('/submit')
+
+    // setValidated(()=>{
+    //   if(true){
+    //     history.push("/submit");
+    //   }
+    // });
+    
+
+    // event.preventDefault();
+
   };
 
+
   return (
-    <div className="container">
-      <Form>
+    <div className="container d-flex justify-content-around">
+      <Form noValidate validated={validated} onSubmit={handleSubmit}>
         <Row className="mb-3">
           <Form.Group as={Col}>
-            <Form.Label>First name</Form.Label>
+            <Form.Label>First name *</Form.Label>
             <Form.Control
               type="text"
+              // className="is-valid"
               placeholder="Enter first name"
+              name="firstName"
               id="firstName"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
+              value={user.firstName}
+              onChange={handleInputs}
+              required
+              defaultValue="name" 
             />
+            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
           </Form.Group>
 
           <Form.Group as={Col}>
-            <Form.Label>Last Name</Form.Label>
+            <Form.Label>Last Name *</Form.Label>
             <Form.Control
+              // className="is-valid"
               type="text"
               placeholder="Enter last Name"
+              name="lastName"
               id="lastName"
-              value={lastName}
-              onChange={(e) => setlastName(e.target.value)}
+              value={user.lastName}
+              onChange={handleInputs}
+              defaultValue="lname"
+              required
             />
+            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
           </Form.Group>
         </Row>
         <Row>
-          <Form.Group as={Col} >
-            <Form.Label>Email</Form.Label>
+          <Form.Group as={Col}>
+            <Form.Label>Email *</Form.Label>
             <Form.Control
               type="email"
               placeholder="Enter email"
+              name="email"
               id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={user.email}
+              onChange={handleInputs}
+              defaultValue="email"
+              required
             />
+            <Form.Control.Feedback type="invalid">Enter valid email id</Form.Control.Feedback>
           </Form.Group>
 
-          <Form.Group as={Col} >
-            <Form.Label>Mobile number</Form.Label>
+          <Form.Group as={Col}>
+            <Form.Label>Mobile/Telephone number</Form.Label>
             <Form.Control
-              type="text"
-              placeholder="91+"
+              type="tel"
+              placeholder="+91"
+              name="mobileNumber"
               id="mobileNumber"
-              value={mobileNumber}
-              onChange={(e) => setmobileNumber(e.target.value)}
+              value={user.mobileNumber}
+              onChange={handleInputs}
+              defaultValue="9137"
+              required
             />
+            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
           </Form.Group>
         </Row>
 
@@ -75,30 +142,67 @@ function Data() {
                 <Form.Check
                   type="radio"
                   label="Male"
-                  name="formHorizontalRadios"
+                  // name="formHorizontalRadios"
                   id="formHorizontalRadios1"
+                  name="formHorizontalRadios1"
+                  value={user.formHorizontalRadios1}
+                  defaultValue="formHorizontalRadios"
+                  // required
+                  onChange={handleInputs}
                 />
+                <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                 <Form.Check
                   type="radio"
                   label="Female"
-                  name="formHorizontalRadios"
+                  name="formHorizontalRadios2"
                   id="formHorizontalRadios2"
+                  defaultValue=""
+                  // required
+                  value={user.formHorizontalRadios2}
+                  onChange={handleInputs}
                 />
+                {/* <Form.Control.Feedback>Looks good!</Form.Control.Feedback> */}
                 <Form.Check
                   type="radio"
-                  label="Other"
-                  name="formHorizontalRadios"
+                  label="Dont want to disclose"
+                  name="formHorizontalRadios3"
                   id="formHorizontalRadios3"
+                  defaultValue=""
+                  // required
+                  value={user.formHorizontalRadios3}
+                  onChange={handleInputs}
                 />
               </Col>
+              {/* <Form.Control.Feedback>Looks good!</Form.Control.Feedback> */}
             </Form.Group>
 
             {/* highest qualification */}
             <Form.Group as={Col}>
-              <Form.Label as="legend" column sm={3}>
+              <Dropdown className="mt-3">
+                <Dropdown.Toggle variant="light" id="dropdown-basic">
+                  Highest qualification
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu>
+                  {/* <Dropdown.Item href="#/action-1">{state.value}</Dropdown.Item> */}
+                  <Dropdown.Item href="#/action-1">10th pass</Dropdown.Item>
+                  <Dropdown.Item href="#/action-2">12th Arts</Dropdown.Item>
+                  <Dropdown.Item href="#/action-3">12th Science</Dropdown.Item>
+                  <Dropdown.Item href="#/action-4">12th Commerce</Dropdown.Item>
+                  <Dropdown.Item href="#/action-5">Diploma</Dropdown.Item>
+                  <Dropdown.Item href="#/action-6">
+                    Under Graduate
+                  </Dropdown.Item>
+                  <Dropdown.Item href="#/action-7">
+                    1PG/MBA/ME/MTech
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+              {/* <Form.Label as="legend" column sm={3}>
                 Highest qualification
-              </Form.Label>
-              <Col sm={10}>
+              </Form.Label> */}
+
+              {/* <Col sm={10}>
                 <Form.Check
                   type="radio"
                   label="10th Pass"
@@ -141,60 +245,145 @@ function Data() {
                   name="formHorizontalRadios"
                   id="formHorizontalRadios3"
                 />
-              </Col>
+              </Col> */}
             </Form.Group>
           </Row>
         </fieldset>
+
         {/* company experience */}
         <Row className="mb-3">
-          <Form.Group as={Col} controlId="formGridname">
+          <Form.Group as={Col}>
             <Form.Label>Name of Companies Worked earlier</Form.Label>
-            <Form.Control type="text" placeholder="Company name" />
+            <Form.Control
+              type="text"
+              placeholder="Company name"
+              name="companyName"
+              id="companyName"
+              defaultValue=""
+              required
+              value={user.companyName}
+              onChange={handleInputs}
+            />
+            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
           </Form.Group>
 
-          <Form.Group as={Col} controlId="formGridlastName">
+          <Form.Group as={Col}>
             <Form.Label>Expected Natue of job</Form.Label>
-            <Form.Control type="text" placeholder="eg: supervisor, helper" />
+            <Form.Control
+              type="text"
+              placeholder="eg: supervisor, helper"
+              name="expectedJob"
+              id="expectedJob"
+              defaultValue="helper"
+              required
+              value={user.expectedJob}
+              onChange={handleInputs}
+            />
+            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
           </Form.Group>
         </Row>
 
-        <Form.Group className="mb-3" controlId="formGridAddress1">
+        <Form.Group className="mb-3">
           <Form.Label>Address</Form.Label>
-          <Form.Control placeholder="1234 Main St" />
+          <Form.Control
+            type="text"
+            placeholder="1234 Main St"
+            id="Address"
+            name="Address"
+            value={user.Address}
+            defaultValue="xxx"
+            required
+            onChange={handleInputs}
+          />
+          <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group className="mb-3" controlId="formGridAddress2">
+        <Form.Group className="mb-3">
           <Form.Label>Address 2</Form.Label>
-          <Form.Control placeholder="Apartment, studio, or floor" />
+          <Form.Control
+            type="text"
+            placeholder="Apartment, studio, or floor"
+            id="Address2"
+            name="Address2"
+            defaultValue="xxx2"
+            required
+            value={user.Address2}
+            onChange={handleInputs}
+          />
+          <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
         </Form.Group>
 
         <Row className="mb-3">
-          <Form.Group as={Col} controlId="formGridCity">
+          <Form.Group as={Col} >
             <Form.Label>City</Form.Label>
-            <Form.Control />
+            <Form.Control
+              type="text"
+              name="City"
+              id="City"
+              value={user.City}
+              defaultValue="new"
+              required
+              onChange={handleInputs}
+            />
           </Form.Group>
 
-          <Form.Group as={Col} controlId="formGridState">
+          <Form.Group as={Col}>
             <Form.Label>State</Form.Label>
-            <Form.Select defaultValue="Choose...">
+            <Form.Select
+              defaultValue="Choose..."
+              id="States"
+              name="States"
+              value={user.States}
+              onChange={handleInputs}
+              required
+            >
               <option>Choose...</option>
-              <option>...</option>
+              <option>Mumbai</option>
+              <option>Pune</option>
+              <option>Banglore</option>
+              <option>Bihar</option>
+              <option>Delhi</option>
+              <option>Thane</option>
+              <option>Navi Mumbai</option>
+
             </Form.Select>
+            <Form.Control.Feedback type="invalid">Select required state</Form.Control.Feedback>
           </Form.Group>
 
-          <Form.Group as={Col} controlId="formGridZip">
-            <Form.Label>Zip</Form.Label>
-            <Form.Control />
+          <Form.Group as={Col} >
+            <Form.Label>Pincode</Form.Label>
+            <Form.Control
+              type="text"
+              name="Pincode"
+              id="Pincode"
+              defaultValue="0000"
+              required
+              value={user.Pincode}
+              onChange={handleInputs}
+            />
           </Form.Group>
         </Row>
 
         <Form.Group className="mb-3" id="formGridCheckbox">
-          <Form.Check type="checkbox" label="Check me out" />
+          <Form.Check
+            type="checkbox"
+            label="Check me out"
+            id="checkMe"
+            name="checkMe"
+            value={user.checkMe}
+            defaultValue=""
+            required
+            onChange={handleInputs}
+          />
         </Form.Group>
 
-        <Button variant="primary" type="submit" onClick={handleSubmit}>
+      
+
+        <Button className="mb-5" variant="primary" type="submit" onClick={handleSubmit}>
           Submit
         </Button>
+      
+        
       </Form>
     </div>
   );

@@ -50,13 +50,13 @@
 .example{
     margin-left: 371px;
     color: lightgray;
+    font-size: 20px;
 }
 
 .eg{
-    margin-left: auto;
-    margin-right: 542px;
+    margin-right: 376px;
     color: lightgray;
-    margin-top: 7px;
+    margin-top: 2px;
 }
 
 .eg ul li{
