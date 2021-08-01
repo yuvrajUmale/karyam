@@ -1,54 +1,163 @@
 import React from "react";
 import { Form, Row, Col, Button, Dropdown } from "react-bootstrap";
 import { useState } from "react";
-import {Link, useHistory } from 'react-router-dom'
-import Submit from "../pages/Submit";
+// import { Link, useHistory } from "react-router-dom";
+// import Submit from "../pages/Submit";
 // import Dropdown from "./Dropdown";
+
+// https://mp-job-portal.herokuapp.com/
+// api.add_resource(show,'/')
+// api.add_resource(job_description,'/jobd')
+// api.add_resource(Candidate,'/candidate')
 
 function Data() {
   // const [firstName, setFirstName] = useState("");
   // const [lastName, setlastName] = useState("");
   // const [email, setEmail] = useState("");
   // const [mobileNumber, setmobileNumber] = useState("");
-  const history = useHistory();
+  // const history = useHistory();
   const [validated, setValidated] = useState(false);
-  const [check, setCheck] = useState(false);
+  // const [check, setCheck] = useState(false);
   const [user, setUser] = useState({
-    firstName:'',
+    firstName: "",
     lastName: "",
     email: "",
     mobileNumber: "",
-    formHorizontalRadios1: "",
-    formHorizontalRadios2: "",
-    formHorizontalRadios3: "",
+    // formHorizontalRadios1: "",
+    // formHorizontalRadios2: "",
+    // formHorizontalRadios3: "",
+    // Gender: "",
+    // qualification: "",
+    gender: "",
+    hightet_qualification: "",
     companyName: "",
     expectedJob: "",
     Address: "",
     Address2: "",
     City: "",
-    States: "",
-    Pincode:"",
-    checkMe:""
+    state: "",
+    Pincode: "",
+    checkMe: "",
   });
 
   function handleInputs(e) {
     const value = e.target.value;
     setUser({
       ...user,
-      [e.target.name]:value
-    })
-    setUser("");
+      [e.target.name]: value,
+    });
+    // setUser("");
   }
 
-  const handleSubmit = (event) => {
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const form = event.currentTarget;
+      if (form.checkValidity() === false) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+
+      setValidated(true);
+
+      const {
+        firstName,
+        lastName,
+        email,
+        mobileNumber,
+        // formHorizontalRadios1,
+        // formHorizontalRadios2,
+        // formHorizontalRadios3,
+        // Gender,
+        // qualification,
+        gender,
+        hightet_qualification,
+        companyName,
+        expectedJob,
+        Address,
+        Address2,
+        City,
+        state,
+        Pincode,
+        checkMe,
+      } = user;
+      // const body = {
+      //   firstName:,
+      //   lastName:"lastName",
+      //   email:"email",
+      //   mobileNumber:"mobileNumber",
+      //   formHorizontalRadios1:"",
+      //   formHorizontalRadios2:"",
+      //   formHorizontalRadios3:"",
+      //   companyName:"",
+      //   expectedJob:"",
+      //   Address:"",
+      //   Address2:"",
+      //   City:"",
+      //   States:"",
+      //   Pincode:"",
+      //   checkMe:"",
+      // };
+      const response = await fetch(
+        "https://mp-job-portal.herokuapp.com/candidate",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            firstName,
+            lastName,
+            email,
+            mobileNumber,
+            // formHorizontalRadios1,
+            // formHorizontalRadios2,
+            // formHorizontalRadios3,
+            gender,
+            hightet_qualification,
+            companyName,
+            expectedJob,
+            Address,
+            Address2,
+            City,
+            state,
+            Pincode,
+            checkMe,
+          }),
+        }
+      );
+      console.log(response);
+    } catch (err) {
+      console.error(err.message);
     }
 
-    setValidated(true);
-    
+    // const res = await fetch("https://mp-job-portal.herokuapp.com/candidate", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+
+    //   },
+    //   body: JSON.stringify({
+    //     firstName,
+    //     lastName,
+    //     email,
+    //     mobileNumber,
+    //     formHorizontalRadios1,
+    //     formHorizontalRadios2,
+    //     formHorizontalRadios3,
+    //     companyName,
+    //     expectedJob,
+    //     Address,
+    //     Address2,
+    //     City,
+    //     States,
+    //     Pincode,
+    //     checkMe
+    //   })
+    // });
+
+    // const data = await res.json();
+
+    // console.log(`success${data}`);
+
     // history.push('/submit')
 
     // setValidated(()=>{
@@ -56,12 +165,9 @@ function Data() {
     //     history.push("/submit");
     //   }
     // });
-    
 
     // event.preventDefault();
-
   };
-
 
   return (
     <div className="container d-flex justify-content-around">
@@ -78,7 +184,7 @@ function Data() {
               value={user.firstName}
               onChange={handleInputs}
               required
-              defaultValue="name" 
+              defaultValue="name"
             />
             <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
           </Form.Group>
@@ -112,7 +218,9 @@ function Data() {
               defaultValue="email"
               required
             />
-            <Form.Control.Feedback type="invalid">Enter valid email id</Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">
+              Enter valid email id
+            </Form.Control.Feedback>
           </Form.Group>
 
           <Form.Group as={Col}>
@@ -131,8 +239,75 @@ function Data() {
           </Form.Group>
         </Row>
 
+        {/* <Row className="mb-3">
+          <Form.Group as={Col}>
+            <Form.Label>First name *</Form.Label>
+            <Form.Control
+              type="text"
+              // className="is-valid"
+              placeholder="Enter first name"
+              name="firstName"
+              id="firstName"
+              value={user.firstName}
+              onChange={handleInputs}
+              required
+              defaultValue="name"
+            />
+            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+          </Form.Group>
+
+          <Form.Group as={Col}>
+            <Form.Label>Last Name *</Form.Label>
+            <Form.Control
+              // className="is-valid"
+              type="text"
+              placeholder="Enter last Name"
+              name="lastName"
+              id="lastName"
+              value={user.lastName}
+              onChange={handleInputs}
+              defaultValue="lname"
+              required
+            />
+            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+          </Form.Group>
+        </Row> */}
+        <Row className="mb-3">
+          <Form.Group as={Col}>
+            <Form.Label>Gender</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Enter Gender"
+              name="gender"
+              id="gender"
+              value={user.gender}
+              onChange={handleInputs}
+              defaultValue="gender"
+              required
+            />
+            <Form.Control.Feedback type="valid">
+              looks good
+            </Form.Control.Feedback>
+          </Form.Group>
+
+          <Form.Group as={Col}>
+            <Form.Label>Highest qualification</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="Enter qualification"
+              name="hightet_qualification"
+              id="hightet_qualification"
+              value={user.hightet_qualification}
+              onChange={handleInputs}
+              defaultValue=""
+              required
+            />
+            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+          </Form.Group>
+        </Row>
+
         {/* radio */}
-        <fieldset>
+        {/* <fieldset>
           <Row className="mb-3">
             <Form.Group as={Col}>
               <Form.Label as="legend" column sm={3}>
@@ -162,7 +337,7 @@ function Data() {
                   onChange={handleInputs}
                 />
                 {/* <Form.Control.Feedback>Looks good!</Form.Control.Feedback> */}
-                <Form.Check
+        {/* <Form.Check
                   type="radio"
                   label="Dont want to disclose"
                   name="formHorizontalRadios3"
@@ -174,18 +349,18 @@ function Data() {
                 />
               </Col>
               {/* <Form.Control.Feedback>Looks good!</Form.Control.Feedback> */}
-            </Form.Group>
+        {/* </Form.Group> */}
 
-            {/* highest qualification */}
-            <Form.Group as={Col}>
+        {/* highest qualification */}
+        {/* <Form.Group as={Col}>
               <Dropdown className="mt-3">
                 <Dropdown.Toggle variant="light" id="dropdown-basic">
                   Highest qualification
                 </Dropdown.Toggle>
 
-                <Dropdown.Menu>
-                  {/* <Dropdown.Item href="#/action-1">{state.value}</Dropdown.Item> */}
-                  <Dropdown.Item href="#/action-1">10th pass</Dropdown.Item>
+                <Dropdown.Menu> */}
+        {/* <Dropdown.Item href="#/action-1">{state.value}</Dropdown.Item> */}
+        {/* <Dropdown.Item href="#/action-1">10th pass</Dropdown.Item>
                   <Dropdown.Item href="#/action-2">12th Arts</Dropdown.Item>
                   <Dropdown.Item href="#/action-3">12th Science</Dropdown.Item>
                   <Dropdown.Item href="#/action-4">12th Commerce</Dropdown.Item>
@@ -197,12 +372,12 @@ function Data() {
                     1PG/MBA/ME/MTech
                   </Dropdown.Item>
                 </Dropdown.Menu>
-              </Dropdown>
-              {/* <Form.Label as="legend" column sm={3}>
+              </Dropdown> */}
+        {/* <Form.Label as="legend" column sm={3}>
                 Highest qualification
               </Form.Label> */}
 
-              {/* <Col sm={10}>
+        {/* <Col sm={10}>
                 <Form.Check
                   type="radio"
                   label="10th Pass"
@@ -246,9 +421,10 @@ function Data() {
                   id="formHorizontalRadios3"
                 />
               </Col> */}
-            </Form.Group>
+        {/* new line */}
+        {/* </Form.Group>
           </Row>
-        </fieldset>
+        </fieldset> */}
 
         {/* company experience */}
         <Row className="mb-3">
@@ -314,7 +490,7 @@ function Data() {
         </Form.Group>
 
         <Row className="mb-3">
-          <Form.Group as={Col} >
+          <Form.Group as={Col}>
             <Form.Label>City</Form.Label>
             <Form.Control
               type="text"
@@ -327,7 +503,7 @@ function Data() {
             />
           </Form.Group>
 
-          <Form.Group as={Col}>
+          {/* <Form.Group as={Col}>
             <Form.Label>State</Form.Label>
             <Form.Select
               defaultValue="Choose..."
@@ -345,12 +521,40 @@ function Data() {
               <option>Delhi</option>
               <option>Thane</option>
               <option>Navi Mumbai</option>
-
             </Form.Select>
-            <Form.Control.Feedback type="invalid">Select required state</Form.Control.Feedback>
+            <Form.Control.Feedback type="invalid">
+              Select required state
+            </Form.Control.Feedback>
+          </Form.Group> */}
+          {/* <Form.Group as={Col}>
+            <Form.Label>State</Form.Label>
+            <Form.Control
+              type="text"
+              name="state"
+              id="state"
+              defaultValue="0000"
+              required
+              value={user.state}
+              onChange={handleInputs}
+            />
+          </Form.Group> */}
+
+          <Form.Group as={Col}>
+            <Form.Label>State</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder="state"
+              name="state"
+              id="state"
+              value={user.state}
+              onChange={handleInputs}
+              defaultValue="00"
+              required
+            />
+            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
           </Form.Group>
 
-          <Form.Group as={Col} >
+          <Form.Group as={Col}>
             <Form.Label>Pincode</Form.Label>
             <Form.Control
               type="text"
@@ -377,13 +581,14 @@ function Data() {
           />
         </Form.Group>
 
-      
-
-        <Button className="mb-5" variant="primary" type="submit" onClick={handleSubmit}>
+        <Button
+          className="mb-5"
+          variant="primary"
+          type="submit"
+          onClick={handleSubmit}
+        >
           Submit
         </Button>
-      
-        
       </Form>
     </div>
   );
