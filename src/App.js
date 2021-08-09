@@ -8,6 +8,7 @@ import "./style.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Details from "./pages/Details";
 import Submit from "./pages/Submit";
+import Job from "./pages/Job";
 
 function App() {
   return (
@@ -21,6 +22,12 @@ function App() {
         </Route>
         <Route path="/details" exact>
         <Details />
+        </Route>
+        <Route path="/job" exact>
+        <Job />
+        </Route>
+        <Route path="/submit" exact>
+        <Submit />
         </Route>
       </Switch>
     </div>
