@@ -1,6 +1,8 @@
 import React from "react";
 import { Form, Row, Col, Button } from "react-bootstrap";
 import { useState } from "react";
+// import { Jumbotron } from "reactstrap";
+import Submit from '../pages/Submit'
 // import Submit from "../pages/Submit";
 // import Card from "../components/Card";
 // import { Link, useHistory } from "react-router-dom";
@@ -106,6 +108,7 @@ function Data() {
         }
       );
       console.log(response);
+      alert(`${firstName}, Details added successfully `);
     } catch (err) {
       console.error(err.message);
     }
@@ -144,6 +147,7 @@ function Data() {
                 onChange={handleInputs}
                 defaultValue="lname"
                 required
+                
               />
               <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
             </Form.Group>
@@ -382,6 +386,7 @@ function Data() {
             Submit
           </Button>
         </Form>
+
       </div>
     </>
   );

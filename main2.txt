@@ -1,0 +1,252 @@
+import React from "react";
+import { Form, Row, Col, Button } from "react-bootstrap";
+import { useState } from "react";
+
+function Detailsp() {
+  const [validated, setValidated] = useState(false);
+  // const [check, setCheck] = useState(false);
+  const [user, setUser] = useState({
+    jid: "",
+    name_of_the_company: "",
+    website_link: "",
+    logo_name: "",
+    job_profile: "",
+    job_description: "",
+    job_category:"",
+  });
+
+  function handleInputs(e) {
+    const value = e.target.value;
+    setUser({
+      ...user,
+      [e.target.name]: value,
+    });
+    // setUser("");
+  }
+
+  //   const handleSubmit = (event) => {
+  //     const form = event.currentTarget;
+  //     if (form.checkValidity() === false) {
+  //       event.preventDefault();
+  //       event.stopPropagation();
+  //     }
+  //     setValidated(true);
+  //   };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const form = event.currentTarget;
+      if (form.checkValidity() === false) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+
+      setValidated(true);
+      const {
+        jid,
+        name_of_the_company,
+        website_link,
+        logo_name,
+        job_profile,
+        job_description,
+        job_category,
+      } = user;
+      const response = await fetch("https://mp-job-portal.herokuapp.com/jobd", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          jid,
+          name_of_the_company,
+          website_link,
+          logo_name,
+          job_profile,
+          job_description,
+          job_category,
+        }),
+      }).then((result) => {
+        result.json().then((resp) => {
+          console.warn("resp", resp);
+        });
+      });
+      console.log(response);
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+
+  //   const handleClick = async (event) => {
+  //     event.preventDefault();
+  //     try {
+  //       const { CompanyName, websiteLink, logoName, jobProfile, jobDescription } =
+  //         user;
+  //       const response = await fetch("https://mp-job-portal.herokuapp.com/jobd", {
+  //         method: "POST",
+  //         headers: { "Content-Type": "application/json" },
+  //         body: JSON.stringify({
+  //           CompanyName,
+  //           websiteLink,
+  //           logoName,
+  //           jobProfile,
+  //           jobDescription,
+  //         }),
+  //       });
+  //       console.log(response);
+  //     } catch (error) {
+  //       console.error(error.message);
+  //     }
+  //   };
+  return (
+    <div className="hero2">
+      <h1 className="headingl">About Company</h1>
+
+      <div className="container-fluid">
+        <Form noValidate validated={validated} onSubmit={handleSubmit}>
+          <Row className="mb-3">
+            <Form.Group as={Col}>
+              <Form.Label>id *</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Enter id"
+                name="jid"
+                id="jid"
+                value={user.jid}
+                onChange={handleInputs}
+                required
+                defaultValue=""
+              />
+              <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+            </Form.Group>
+          </Row>
+          <Row className="mb-3">
+            <Form.Group as={Col}>
+              <Form.Label>Name of company *</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Enter company name"
+                name="name_of_the_company"
+                id="name_of_the_company"
+                value={user.name_of_the_company}
+                onChange={handleInputs}
+                required
+                defaultValue=""
+              />
+              <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+            </Form.Group>
+          </Row>
+          <Row className="mb-3">
+            <Form.Group as={Col}>
+              <Form.Label>Website link</Form.Label>
+              <Form.Control
+                type="text"
+                // className="is-valid"
+                placeholder="Website link if any"
+                name="website_link"
+                id="website_link"
+                value={user.website_link}
+                onChange={handleInputs}
+                required
+                defaultValue=""
+              />
+              <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+            </Form.Group>
+          </Row>
+          <Row className="mb-3">
+            <Form.Group as={Col}>
+              <Form.Label>Logo</Form.Label>
+              <Form.Control
+                type="text"
+                // className="is-valid"
+                placeholder=""
+                name="logo_name"
+                id="logo_name"
+                value={user.logo_name}
+                onChange={handleInputs}
+                required
+                defaultValue="name"
+              />
+              <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+              <Button className="mb-5 mt-2" variant="primary" type="submit">
+                upload
+              </Button>
+            </Form.Group>
+          </Row>
+          <h1 className="headingl">Job Description</h1>
+          <Row className="mb-3">
+            <Form.Group as={Col}>
+              <Form.Label>Job Profile</Form.Label>
+              <Form.Control
+                type="text"
+                // className="is-valid"
+                placeholder="Enter first name"
+                name="job_profile"
+                id="job_profile"
+                value={user.job_profile}
+                onChange={handleInputs}
+                required
+                defaultValue=""
+              />
+              <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+            </Form.Group>
+          </Row>
+          <Row className="mb-3">
+            <Form.Group as={Col}>
+              <Form.Label>Job Category</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Enter job category"
+                name="job_category"
+                id="job_category"
+                value={user.job_category}
+                onChange={handleInputs}
+                required
+                defaultValue=""
+              />
+              <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+            </Form.Group>
+          </Row>
+          <Row className="mb-3">
+            <Form.Group as={Col}>
+              <Form.Label>job Description</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Enter job Description"
+                name="job_description"
+                id="job_description"
+                value={user.job_description}
+                onChange={handleInputs}
+                required
+                defaultValue=""
+              />
+              <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+            </Form.Group>
+          </Row>
+          {/* <Row className="mb-3">
+            <Form.Group as={Col}>
+              <Form.Label>Job Description</Form.Label>
+              <Form.Control
+                as="textarea"
+                placeholder="Enter Job Description"
+                name="jobDescription"
+                id="jobDescription"
+                value={user.jobDescription}
+                onChange={handleInputs}
+                required
+                defaultValue="n"
+              />
+              <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+            </Form.Group>
+          </Row> */}
+          <Button variant="primary" type="submit " onClick={handleSubmit}>
+            Post Job
+          </Button>
+        </Form>
+      </div>
+    </div>
+  );
+}
+
+export default Detailsp;

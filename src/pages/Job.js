@@ -40,16 +40,7 @@ function Job(props) {
         <Card Name="FrontEnd Developer" Role="Intern" Description="ABC"/>
         <button type="button" className="btn btn-primary">Apply</button> */}
       <ul>
-        {users.filter((val)=>{
-          if(props.search === ""){
-            return val;
-          }
-          else if( val.job_profile.includes(props.search)){
-            return val;
-          }
-          return val
-
-        }).map((user) => {
+        {users.map((user) => {
           const { jid,job_profile, job_description, name_of_the_company } = user;
           // console.log(users);
           return (

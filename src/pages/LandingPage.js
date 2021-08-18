@@ -18,16 +18,16 @@ function LandingPage() {
     Aos.init({ duration: 2000 });
   }, []);
 
-  const getSearch = async () => {
-    const response = await fetch("https://mp-job-portal.herokuapp.com/");
-    const users = await response.json();
-    console.log(users);
-    setSearch(users);
-  };
+  // const getSearch = async () => {
+  //   const response = await fetch("https://mp-job-portal.herokuapp.com/");
+  //   const users = await response.json();
+  //   console.log(users);
+  //   setSearch(users);
+  // };
 
-  useEffect(() => {
-    getSearch();
-  },[]);
+  // useEffect(() => {
+  //   getSearch();
+  // },[]);
 
   const handleSubmit = (e) => {
     // e.preventDefault();
@@ -44,8 +44,9 @@ function LandingPage() {
       <div className="LandingPage kenburns-top color-change-5x">
        
           <nav className="navbarp" data-aos="zoom-in">
-            <a className="navbar-brand" href="/details">
+            <a className="navbar-brand" href="/login">
               <img
+              // className="imagei"
                 src={image}
                 // width="30"
                 // height="30"
@@ -56,7 +57,7 @@ function LandingPage() {
         
         {/* heading */}
         <div className="heading" data-aos="flip-up">
-          <h1>Job portal</h1>
+          <h1>Job Search</h1>
         </div>
         {/* button */}
         <div>
