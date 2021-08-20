@@ -7,7 +7,7 @@ import React from "react";
 import Aos from "aos";
 import "aos/dist/aos.css";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import image from '../image/login.png'
 
 function LandingPage() {
@@ -44,7 +44,7 @@ function LandingPage() {
       <div className="LandingPage kenburns-top color-change-5x">
        
           <nav className="navbarp" data-aos="zoom-in">
-            <a className="navbar-brand" href="/login">
+            <a className="navbar-brand" href="/Admin">
               <img
               // className="imagei"
                 src={image}
@@ -74,7 +74,7 @@ function LandingPage() {
             />
 
             {/* <span class="floating-label">Your email address</span> */}
-            <Link to="/job">
+            {/* <Link to="/job"> */}
               <button
                 type="button"
                 data-aos="slide-right"
@@ -83,7 +83,7 @@ function LandingPage() {
               >
                 search
               </button>
-            </Link>
+            {/* </Link> */}
           </form>
         </div>
         {/* <div className="container d-flex justify-content-center">

@@ -1,12 +1,13 @@
 import React from "react";
 import { Form, Row, Col, Button } from "react-bootstrap";
 import { useState } from "react";
+import { Redirect } from "react-router-dom";
 // import { Jumbotron } from "reactstrap";
-import Submit from '../pages/Submit'
+// import Submit from '../pages/Submit'
 // import Submit from "../pages/Submit";
 // import Card from "../components/Card";
 // import { Link, useHistory } from "react-router-dom";
-// import Submit from "../pages/Submit";
+import Submit from "../pages/Submit";
 // import Dropdown from "./Dropdown";
 
 // https://mp-job-portal.herokuapp.com/
@@ -22,6 +23,7 @@ function Data() {
   // const history = useHistory();
   const [validated, setValidated] = useState(false);
   // const [check, setCheck] = useState(false);
+  const [submit, setsubmit] = useState(false);
   const [user, setUser] = useState({
     firstName: "",
     lastName: "",
@@ -53,8 +55,12 @@ function Data() {
     try {
       const form = event.currentTarget;
       if (form.checkValidity() === false) {
+        // alert(``);
         event.preventDefault();
         event.stopPropagation();
+      } else {
+        alert(`Details added successfully `);
+        setsubmit(true);
       }
 
       setValidated(true);
@@ -108,7 +114,7 @@ function Data() {
         }
       );
       console.log(response);
-      alert(`${firstName}, Details added successfully `);
+      // alert(`${firstName}, Details added successfully `);
     } catch (err) {
       console.error(err.message);
     }
@@ -147,7 +153,6 @@ function Data() {
                 onChange={handleInputs}
                 defaultValue="lname"
                 required
-                
               />
               <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
             </Form.Group>
@@ -218,8 +223,6 @@ function Data() {
               <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
             </Form.Group>
           </Row>
-
-
 
           {/* company experience */}
           <Row className="mb-3">
@@ -375,8 +378,9 @@ function Data() {
               onChange={handleInputs}
             />
           </Form.Group>
+          <input className="btn btn-primary mb-5" type="submit" />
 
-          <Button
+          {/* <Button
             className="mb-5"
             variant="primary"
             type="submit"
@@ -384,9 +388,8 @@ function Data() {
             onClick={handleSubmit}
           >
             Submit
-          </Button>
+          </Button> */}
         </Form>
-
       </div>
     </>
   );

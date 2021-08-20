@@ -6,7 +6,7 @@ import { Button } from "react-bootstrap";
 import Footer from "../components/Footer";
 import image from "../image/login.png";
 
-function login() {
+function Admin() {
   return (
     <>
       <div className="bbb">
@@ -30,4 +30,4 @@ function login() {
   );
 }
 
-export default login;
+export default Admin;

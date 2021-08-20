@@ -1,6 +1,6 @@
 import React from "react";
 import Google from "../image/google.png";
-import Login from '../pages/login'
+import Admin from '../pages/Admin'
 
 function Headingp() {
   return (
