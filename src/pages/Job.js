@@ -28,7 +28,7 @@ function Job(props) {
 
   return (
     <React.Fragment>
-      {/* <Card Name="Data Analyst" Role="Intern" Description="xyz" />
+       {/* <Card Name="Data Analyst" Role="Intern" Description="xyz" /> 
         <button type="button" className="btn btn-primary">Apply</button>
         
         <Card Name="Software Developer" Role="FullTime" Description="ABC" />

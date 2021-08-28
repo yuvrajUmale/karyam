@@ -292,6 +292,7 @@ function Data() {
               <Form.Label>City</Form.Label>
               <Form.Control
                 type="text"
+                placeholder="Enter City"
                 name="City"
                 id="City"
                 value={user.City}
@@ -356,6 +357,7 @@ function Data() {
               <Form.Label>Pincode</Form.Label>
               <Form.Control
                 type="text"
+                placeholder="Enter Pincode"
                 name="Pincode"
                 id="Pincode"
                 defaultValue="0000"
@@ -364,7 +366,32 @@ function Data() {
                 onChange={handleInputs}
               />
             </Form.Group>
+
           </Row>
+          
+          <Row classname = "mb-3">
+          <Form.Group as={Col}>
+              <Form.Label>Enter url for LinkedIn Profile *</Form.Label>
+              <Form.Control
+                // className="is-valid"
+                type="text"
+                placeholder="Enter the url to your LinkedIn profile"
+                name="Resume"
+                id="Resume"
+                value={user.Resume}
+                required
+              />
+              <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+            </Form.Group>
+            {/* <Form.Group as={Col}> 
+              <Form.Label>CV</Form.Label>
+              <Form.Control type = "file"/>
+            </Form.Group> </Form>*/}
+            
+          {/* <label> Resume -</label> */}
+          {/* <input  type="file" /> */}
+          </Row>
+
 
           <Form.Group className="mb-3" id="formGridCheckbox">
             <Form.Check
